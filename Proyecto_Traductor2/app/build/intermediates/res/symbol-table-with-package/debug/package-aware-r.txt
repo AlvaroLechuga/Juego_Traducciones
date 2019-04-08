@@ -1394,6 +1394,8 @@ menu activity_main_drawer
 menu main
 mipmap ic_launcher
 mipmap ic_launcher_round
+raw correct
+raw fail
 string abc_action_bar_home_description
 string abc_action_bar_up_description
 string abc_action_menu_overflow_description

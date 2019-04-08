@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Canvas;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,8 +13,6 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -55,8 +53,8 @@ public class Test extends AppCompatActivity
     boolean juego = true;
     int tiempoMaximo = 0;
 
-    Handler h = new Handler();
-    Runnable runnable;
+    MediaPlayer correct;
+    MediaPlayer fail;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -84,6 +82,9 @@ public class Test extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        correct = MediaPlayer.create(getApplicationContext(), R.raw.correct);
+        fail = MediaPlayer.create(getApplicationContext(), R.raw.fail);
+
         txtPalabra = findViewById(R.id.txtPalabra);
 
         btnOPC1 = findViewById(R.id.btnOPC1);
@@ -105,24 +106,7 @@ public class Test extends AppCompatActivity
         SharedPreferences prefs = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
         totalPalabras = prefs.getInt("nPreguntas", 5);
         tiempoMaximo = prefs.getInt("tPreguntas", 10);
-
-        tiempoMaximo = tiempoMaximo * 1000;
         GenerarJuego();
-    }
-
-    @Override
-    protected void onResume() {
-
-        h.postDelayed( runnable = new Runnable() {
-            public void run() {
-                Toast.makeText(getApplicationContext(), "Holaaaa", Toast.LENGTH_SHORT).show();
-                // contadorPalabras++;
-                // GenerarJuego();
-                h.postDelayed(runnable, tiempoMaximo);
-            }
-        }, tiempoMaximo);
-
-        super.onResume();
     }
 
     @Override
@@ -136,6 +120,7 @@ public class Test extends AppCompatActivity
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+                        correct.start();
                         palabrasInicial.get(n).setAciertos(palabrasInicial.get(n).getAciertos()+1);
                         palabrasIngles.clear();
                         contadorPalabras++;
@@ -149,6 +134,7 @@ public class Test extends AppCompatActivity
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+                        fail.start();
                         palabrasInicial.get(n).setAciertos(0);
                         palabrasIngles.clear();
                         contadorPalabras++;
@@ -163,6 +149,7 @@ public class Test extends AppCompatActivity
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+                        correct.start();
                         palabrasInicial.get(n).setAciertos(palabrasInicial.get(n).getAciertos()+1);
                         palabrasIngles.clear();
                         contadorPalabras++;
@@ -175,6 +162,7 @@ public class Test extends AppCompatActivity
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+                        fail.start();
                         palabrasInicial.get(n).setAciertos(0);
                         palabrasIngles.clear();
                         contadorPalabras++;
@@ -189,6 +177,7 @@ public class Test extends AppCompatActivity
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+                        correct.start();
                         palabrasInicial.get(n).setAciertos(palabrasInicial.get(n).getAciertos()+1);
                         palabrasIngles.clear();
                         contadorPalabras++;
@@ -201,6 +190,7 @@ public class Test extends AppCompatActivity
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+                        fail.start();
                         palabrasInicial.get(n).setAciertos(0);
                         palabrasIngles.clear();
                         contadorPalabras++;
@@ -215,6 +205,7 @@ public class Test extends AppCompatActivity
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+                        correct.start();
                         palabrasInicial.get(n).setAciertos(palabrasInicial.get(n).getAciertos()+1);
                         palabrasIngles.clear();
                         contadorPalabras++;
@@ -227,6 +218,7 @@ public class Test extends AppCompatActivity
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+                        fail.start();
                         palabrasInicial.get(n).setAciertos(0);
                         palabrasIngles.clear();
                         contadorPalabras++;
@@ -253,7 +245,7 @@ public class Test extends AppCompatActivity
     }
 
 
-    public void GenerarJuego() {
+    private void GenerarJuego() {
 
         palabrasUsadas.add(palabrasInicial.get(n));
         palabrasIngles.add(palabrasInicial.get(n).getPalabraEN());
