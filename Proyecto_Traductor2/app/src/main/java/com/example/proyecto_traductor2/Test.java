@@ -5,10 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
+import android.os.CountDownTimer;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -23,14 +22,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 public class Test extends AppCompatActivity
@@ -55,6 +52,8 @@ public class Test extends AppCompatActivity
 
     MediaPlayer correct;
     MediaPlayer fail;
+
+    Contador counter = null;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -107,6 +106,16 @@ public class Test extends AppCompatActivity
         totalPalabras = prefs.getInt("nPreguntas", 5);
         tiempoMaximo = prefs.getInt("tPreguntas", 10);
         GenerarJuego();
+
+        tiempoMaximo = tiempoMaximo * 1000;
+
+        counter = new Contador(tiempoMaximo,1000);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        counter.start();
     }
 
     @Override
@@ -127,6 +136,7 @@ public class Test extends AppCompatActivity
                         puntuacion++;
                         n++;
                         Toast.makeText(getApplicationContext(), "Acierto", Toast.LENGTH_SHORT).show();
+                        counter.start();
 
                     } else {
                         try {
@@ -140,6 +150,7 @@ public class Test extends AppCompatActivity
                         contadorPalabras++;
                         n++;
                         Toast.makeText(getApplicationContext(), "Fallo", Toast.LENGTH_SHORT).show();
+                        counter.start();
                     }
                     break;
                 case R.id.btnOPC2:
@@ -156,6 +167,7 @@ public class Test extends AppCompatActivity
                         puntuacion++;
                         n++;
                         Toast.makeText(getApplicationContext(), "Acierto", Toast.LENGTH_SHORT).show();
+                        counter.start();
                     } else {
                         try {
                             TimeUnit.SECONDS.sleep(1);
@@ -168,6 +180,7 @@ public class Test extends AppCompatActivity
                         contadorPalabras++;
                         n++;
                         Toast.makeText(getApplicationContext(), "Fallo", Toast.LENGTH_SHORT).show();
+                        counter.start();
                     }
                     break;
                 case R.id.btnOPC3:
@@ -184,6 +197,7 @@ public class Test extends AppCompatActivity
                         puntuacion++;
                         n++;
                         Toast.makeText(getApplicationContext(), "Acierto", Toast.LENGTH_SHORT).show();
+                        counter.start();
                     } else {
                         try {
                             TimeUnit.SECONDS.sleep(1);
@@ -196,6 +210,7 @@ public class Test extends AppCompatActivity
                         contadorPalabras++;
                         n++;
                         Toast.makeText(getApplicationContext(), "Fallo", Toast.LENGTH_SHORT).show();
+                        counter.start();
                     }
                     break;
                 case R.id.btnOPC4:
@@ -212,6 +227,7 @@ public class Test extends AppCompatActivity
                         puntuacion++;
                         n++;
                         Toast.makeText(getApplicationContext(), "Acierto", Toast.LENGTH_SHORT).show();
+                        counter.start();
                     } else {
                         try {
                             TimeUnit.SECONDS.sleep(1);
@@ -224,6 +240,7 @@ public class Test extends AppCompatActivity
                         contadorPalabras++;
                         n++;
                         Toast.makeText(getApplicationContext(), "Fallo", Toast.LENGTH_SHORT).show();
+                        counter.start();
                     }
                     break;
             }
@@ -280,6 +297,29 @@ public class Test extends AppCompatActivity
                 btnOPC4.setText(palabrasInicial.get(n).getPalabraEN());
                 break;
         }
+    }
+
+    public class Contador extends CountDownTimer {
+
+        public Contador(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onFinish() {/////CUANDO SE TERMINA EL CONTEO DEL TIEMPO
+            if(juego){
+                n++;
+                contadorPalabras++;
+                fail.start();
+                GenerarJuego();
+            }
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            int segundos = (int) (millisUntilFinished / 1000);///CADA VEZ QUE PASA UN SEGUNDO LLEGA ACA
+        }
+
     }
 
     public String ObtenerPalabra(){

@@ -1,4 +1,4 @@
-#Mon Apr 08 17:03:42 CEST 2019
+#Mon Apr 08 22:34:43 CEST 2019
 base.0=C\:\\Users\\alvar\\AndroidStudioProjects\\Proyecto_Traductor2\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\out
 path.1=classes.dex
 renamed.1=classes2.dex
