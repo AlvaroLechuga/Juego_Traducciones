@@ -308,6 +308,8 @@ public class Test extends AppCompatActivity
         @Override
         public void onFinish() {/////CUANDO SE TERMINA EL CONTEO DEL TIEMPO
             if(juego){
+                palabrasInicial.get(n).setAciertos(0);
+                palabrasIngles.clear();
                 n++;
                 contadorPalabras++;
                 fail.start();
