@@ -19,6 +19,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.proyecto_traductor2.DAO.DAOPalabra;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -30,6 +32,8 @@ public class InsertarPalabra extends AppCompatActivity
     EditText txtPalabraSP;
     EditText txtPalabraEN;
     List<Palabra> palabras;
+
+    PalabraHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +66,10 @@ public class InsertarPalabra extends AppCompatActivity
 
         btnInsertar.setOnClickListener(this);
 
-        palabras = (ArrayList) getIntent().getParcelableArrayListExtra("listaPalabra");
+        dbHelper = new PalabraHelper(getApplicationContext(), "traductor", null, 1);
 
-        Log.i("sizeList", String.valueOf(palabras.size()));
+        DAOPalabra dao = new DAOPalabra();
+        palabras = dao.ObtenerPalabras(dbHelper);
     }
 
     @Override
@@ -81,28 +86,22 @@ public class InsertarPalabra extends AppCompatActivity
                     Date result = new Date();
                     String fecha = result.toString();
 
-                    Palabra palabra = new Palabra(palabraSP, palabraEN, fecha, fecha, 0);
+                    Palabra palabra = new Palabra();
+                    palabra.setPalabraSP(palabraSP);
+                    palabra.setPalabraEN(palabraEN);
+                    palabra.setFechaIntroduccion(fecha);
+                    palabra.setFechaUltimoTest(fecha);
+                    palabra.setAciertos(0);
 
-                    if(!palabras.contains(palabra)){
-                        palabras.add(palabra);
+                    DAOPalabra dao = new DAOPalabra();
+                    if(dao.InsertarPalabra(palabra, dbHelper) == 1){
+                        Toast.makeText(getApplicationContext(), "Se ha insertado la palabra", Toast.LENGTH_SHORT).show();
                     }else{
-                        for(int i = 0; i < palabras.size(); i++){
-                            if(palabras.get(i).getPalabraSP().equals(palabra.getPalabraSP())){
-                                palabras.get(i).setPalabraEN(palabra.getPalabraEN());
-                                palabras.get(i).setAciertos(palabra.getAciertos());
-                                palabras.get(i).setFechaIntroduccion(palabra.getFechaIntroduccion());
-                                palabras.get(i).setFechaUltimoTest(palabra.getFechaUltimoTest());
-                            }
-                        }
+                        Toast.makeText(getApplicationContext(), "Ha ocurrido un error al insertar la palabra", Toast.LENGTH_SHORT).show();
                     }
 
                     txtPalabraSP.setText("");
                     txtPalabraEN.setText("");
-                    Toast.makeText(getApplicationContext(), "Se ha insertado la palabra", Toast.LENGTH_SHORT).show();
-
-                    Intent returnIntent = new Intent();
-                    returnIntent.putParcelableArrayListExtra("listaPalabra",(ArrayList) palabras);
-                    setResult(Activity.RESULT_OK,returnIntent);
 
                 }
 
@@ -150,7 +149,6 @@ public class InsertarPalabra extends AppCompatActivity
 
         if(id == R.id.nav_manage){
             Intent i = new Intent(getApplicationContext(), Opciones.class);
-            i.putParcelableArrayListExtra("listaPalabra",(ArrayList) palabras);
             startActivity(i);
         }
 

@@ -20,6 +20,8 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.example.proyecto_traductor2.DAO.DAOPalabra;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +39,8 @@ public class SeleccionarConsulta extends AppCompatActivity
 
     List<Palabra> palabras;
     List<Palabra> listaEnviadas;
+
+    PalabraHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +82,10 @@ public class SeleccionarConsulta extends AppCompatActivity
         rbEng.setOnClickListener(this);
         btnBuscar.setOnClickListener(this);
 
-        palabras = (ArrayList) getIntent().getParcelableArrayListExtra("listaPalabra");
+        dbHelper = new PalabraHelper(getApplicationContext(), "traductor", null, 1);
+
+        DAOPalabra dao = new DAOPalabra();
+        palabras = dao.ObtenerPalabras(dbHelper);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -220,7 +227,6 @@ public class SeleccionarConsulta extends AppCompatActivity
 
         if(id == R.id.nav_manage){
             Intent i = new Intent(getApplicationContext(), Opciones.class);
-            i.putParcelableArrayListExtra("listaPalabra",(ArrayList) palabras);
             startActivity(i);
         }
 

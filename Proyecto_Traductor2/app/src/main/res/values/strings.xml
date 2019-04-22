@@ -10,4 +10,5 @@
     <string name="title_activity_seleccionar_consulta">SeleccionarConsulta</string>
     <string name="title_activity_mostrar_busqueda">MostrarBusqueda</string>
     <string name="title_activity_test">Test</string>
+    <string name="title_activity_modify_palabra">modifyPalabra</string>
 </resources>

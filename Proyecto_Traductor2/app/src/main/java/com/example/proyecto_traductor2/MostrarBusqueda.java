@@ -1,11 +1,16 @@
 package com.example.proyecto_traductor2;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,7 +21,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.example.proyecto_traductor2.DAO.DAOPalabra;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +37,11 @@ public class MostrarBusqueda extends AppCompatActivity
     List<Palabra> palabras;
     ListView lvPalabra;
     TextToSpeech tts;
+    Context context = this;
+
+    PalabraHelper dbHelper;
+
+    AdapterPalabra adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,17 +68,20 @@ public class MostrarBusqueda extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        palabras = (ArrayList) getIntent().getParcelableArrayListExtra("listaPalabra");
+        dbHelper = new PalabraHelper(getApplicationContext(), "traductor", null, 1);
+
+        DAOPalabra dao = new DAOPalabra();
+        palabras = dao.ObtenerPalabras(dbHelper);
 
         lvPalabra = findViewById(R.id.lvPalabra);
 
-        AdapterPalabra adapter = new AdapterPalabra(this, (ArrayList<Palabra>) palabras);
+        adapter = new AdapterPalabra(this, (ArrayList<Palabra>) palabras);
 
         lvPalabra.setAdapter(adapter);
 
         lvPalabra.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+            public void onItemClick(AdapterView<?> parent, final View view, final int position, long id) {
 
                 tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
 
@@ -78,10 +95,81 @@ public class MostrarBusqueda extends AppCompatActivity
                                 Log.e("error", "This Language is not supported");
                             }
                             else{
-                                tts.speak(palabras.get(position).getPalabraEN(), TextToSpeech.QUEUE_FLUSH, null);
+                                LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
+                                View view1 = inflater.inflate(R.layout.details_palabra, null);
+                                Button btnPlay = view1.findViewById(R.id.btnPlay);
+                                Button btnEdit = view1.findViewById(R.id.btnEdit);
+                                Button btnDelete = view1.findViewById(R.id.btnDelete);
+                                Button btnCerrarDialogo = view1.findViewById(R.id.btnCerrarDialogo);
+
+                                final AlertDialog alertDialog = new AlertDialog.Builder(context)
+                                        .setView(view1)
+                                        .setCancelable(false)
+                                        .create();
+                                alertDialog.show();
+
+                                btnPlay.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        tts.speak(palabras.get(position).getPalabraEN(), TextToSpeech.QUEUE_FLUSH, null);
+                                    }
+                                });
+
+                                btnEdit.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Intent modificarPalabra = new Intent(getApplicationContext(), modifyPalabra.class);
+
+                                        List<Palabra> palabra = new ArrayList<>();
+
+                                        palabra.add(palabras.get(position));
+
+                                        modificarPalabra.putParcelableArrayListExtra("palabraModificar",(ArrayList) palabra);
+                                        finish();
+                                        startActivity(modificarPalabra);
+
+                                    }
+                                });
+
+                                btnDelete.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        new AlertDialog.Builder(context)
+                                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                                .setTitle("Eliminar Palabra")
+                                                .setMessage("¿Estás seguro de eliminar la palabra?")
+                                                .setNegativeButton(android.R.string.cancel, null)// sin listener
+                                                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {// un listener que al pulsar, cierre la aplicacion
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        // Eliminar palabra
+                                                        DAOPalabra dao = new DAOPalabra();
+                                                        Palabra palabra = new Palabra();
+                                                        palabra.setId(palabras.get(position).getId());
+                                                        if(dao.EliminarPalabra(palabra, dbHelper) == 1){
+                                                            Toast.makeText(getApplicationContext(), "Se ha eliminado la palabra", Toast.LENGTH_SHORT).show();
+                                                            palabras = dao.ObtenerPalabras(dbHelper);
+                                                            adapter = new AdapterPalabra((Activity) context, (ArrayList<Palabra>) palabras);
+                                                            lvPalabra.setAdapter(adapter);
+                                                            alertDialog.cancel();
+                                                        }else{
+                                                            Toast.makeText(getApplicationContext(), "Ha ocurrido un error al eliminar la palabra", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    }
+                                                })
+                                                .show();
+
+                                    }
+                                });
+
+                                btnCerrarDialogo.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        alertDialog.cancel();
+                                    }
+                                });
                             }
-                        }
-                        else
+                        } else
                             Log.e("error", "Initilization Failed!");
                     }
                 });
@@ -130,7 +218,6 @@ public class MostrarBusqueda extends AppCompatActivity
 
         if(id == R.id.nav_manage){
             Intent i = new Intent(getApplicationContext(), Opciones.class);
-            i.putParcelableArrayListExtra("listaPalabra",(ArrayList) palabras);
             startActivity(i);
         }
 

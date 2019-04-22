@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 public class Palabra implements Parcelable {
 
+    private int id;
     private String palabraSP;
     private String palabraEN;
     private String fechaIntroduccion;
@@ -14,12 +15,21 @@ public class Palabra implements Parcelable {
     public Palabra() {
     }
 
-    public Palabra(String palabraSP, String palabraEN, String fechaIntroduccion, String fechaUltimoTest, int aciertos) {
+    public Palabra(int id, String palabraSP, String palabraEN, String fechaIntroduccion, String fechaUltimoTest, int aciertos) {
+        this.id = id;
         this.palabraSP = palabraSP;
         this.palabraEN = palabraEN;
         this.fechaIntroduccion = fechaIntroduccion;
         this.fechaUltimoTest = fechaUltimoTest;
         this.aciertos = aciertos;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getPalabraSP() {
@@ -73,7 +83,9 @@ public class Palabra implements Parcelable {
                 '}';
     }
 
+
     protected Palabra(Parcel in) {
+        id = in.readInt();
         palabraSP = in.readString();
         palabraEN = in.readString();
         fechaIntroduccion = in.readString();
@@ -88,6 +100,7 @@ public class Palabra implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
         dest.writeString(palabraSP);
         dest.writeString(palabraEN);
         dest.writeString(fechaIntroduccion);
@@ -96,7 +109,7 @@ public class Palabra implements Parcelable {
     }
 
     @SuppressWarnings("unused")
-    public static final Creator<Palabra> CREATOR = new Creator<Palabra>() {
+    public static final Parcelable.Creator<Palabra> CREATOR = new Parcelable.Creator<Palabra>() {
         @Override
         public Palabra createFromParcel(Parcel in) {
             return new Palabra(in);

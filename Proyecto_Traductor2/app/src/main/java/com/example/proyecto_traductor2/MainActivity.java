@@ -17,6 +17,8 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.proyecto_traductor2.DAO.DAOPalabra;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,8 +30,9 @@ public class MainActivity extends AppCompatActivity
     Button btnConsultas;
     Button btnTest;
     Button btnSalir;
-
     List<Palabra> listaPalabras = new ArrayList<>();
+
+    PalabraHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +69,8 @@ public class MainActivity extends AppCompatActivity
         btnTest.setOnClickListener(this);
         btnSalir.setOnClickListener(this);
 
+        dbHelper = new PalabraHelper(getApplicationContext(), "traductor", null, 1);
+
         listaPalabras = addPalabras();
 
         Bundle parametros = this.getIntent().getExtras();
@@ -76,23 +81,10 @@ public class MainActivity extends AppCompatActivity
 
     private List<Palabra> addPalabras() {
 
-        Date result = new Date();
-        String fecha = result.toString();
-
         List<Palabra> listado = new ArrayList<>();
 
-        listado.add(new Palabra("Coche", "Cart", fecha, fecha, 0));
-        listado.add(new Palabra("Casa", "House", fecha, fecha, 0));
-        listado.add(new Palabra("Escribir", "Write", fecha, fecha, 0));
-        listado.add(new Palabra("Largo", "Long", fecha, fecha, 0));
-        listado.add(new Palabra("Ir", "Go", fecha, fecha, 0));
-        listado.add(new Palabra("Gente", "People", fecha, fecha, 0));
-        listado.add(new Palabra("Saber", "Know", fecha, fecha, 0));
-        listado.add(new Palabra("Primero", "First", fecha, fecha, 0));
-        listado.add(new Palabra("Ahora", "Now", fecha, fecha, 0));
-        listado.add(new Palabra("Carta", "Card", fecha, fecha, 0));
-        listado.add(new Palabra("Trabajar", "Work", fecha, fecha, 0));
-        listado.add(new Palabra("Nombre", "Name", fecha, fecha, 0));
+        DAOPalabra dao = new DAOPalabra();
+        listado = dao.ObtenerPalabras(dbHelper);
 
         return listado;
     }
@@ -102,36 +94,22 @@ public class MainActivity extends AppCompatActivity
         switch (v.getId()){
             case R.id.btnIntroducir:
                 Intent introducir = new Intent(getApplicationContext(), InsertarPalabra.class);
-                introducir.putParcelableArrayListExtra("listaPalabra",(ArrayList) listaPalabras);
-                startActivityForResult(introducir, 1);
+                startActivity(introducir);
                 break;
 
             case R.id.btnConsultas:
                 Intent consultas = new Intent(getApplicationContext(), SeleccionarConsulta.class);
-                consultas.putParcelableArrayListExtra("listaPalabra",(ArrayList) listaPalabras);
                 startActivity(consultas);
                 break;
 
             case R.id.btnTest:
                 Intent test = new Intent(getApplicationContext(), Test.class);
-                test.putParcelableArrayListExtra("listaPalabra",(ArrayList) listaPalabras);
-                startActivityForResult(test, 1);
+                startActivity(test);
                 break;
 
             case R.id.btnSalir:
                 System.exit(0);
                 break;
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1) { // el "1" es el numero que pasaste como parametro
-            if(resultCode == Activity.RESULT_OK){
-                listaPalabras = data.getParcelableArrayListExtra("listaPalabra");
-            }
-            if (resultCode == Activity.RESULT_CANCELED) {
-            }
         }
     }
 
@@ -175,7 +153,6 @@ public class MainActivity extends AppCompatActivity
 
         if(id == R.id.nav_manage){
             Intent i = new Intent(getApplicationContext(), Opciones.class);
-            i.putParcelableArrayListExtra("listaPalabra",(ArrayList) listaPalabras);
             startActivity(i);
         }
 

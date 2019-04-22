@@ -25,6 +25,9 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.proyecto_traductor2.DAO.DAOPalabra;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -54,6 +57,8 @@ public class Test extends AppCompatActivity
     MediaPlayer fail;
 
     Contador counter = null;
+
+    PalabraHelper dbHelper;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -96,10 +101,14 @@ public class Test extends AppCompatActivity
         btnOPC3.setOnClickListener(this);
         btnOPC4.setOnClickListener(this);
 
-        palabrasInicial = (ArrayList) getIntent().getParcelableArrayListExtra("listaPalabra");
+        dbHelper = new PalabraHelper(getApplicationContext(), "traductor", null, 1);
+
+        DAOPalabra dao = new DAOPalabra();
+
+        palabrasInicial = dao.ObtenerPalabras(dbHelper);
         palabrasInicial.sort(new AvanzadoSorter());
 
-        palabrasCopia = (ArrayList) getIntent().getParcelableArrayListExtra("listaPalabra");
+        palabrasCopia = dao.ObtenerPalabras(dbHelper);
         palabrasCopia.sort(new AvanzadoSorter());
 
         SharedPreferences prefs = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
