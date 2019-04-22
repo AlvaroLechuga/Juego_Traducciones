@@ -34,34 +34,35 @@
           <entry key="project.open.time.26" value="1" />
           <entry key="project.open.time.28" value="1" />
           <entry key="project.open.time.30" value="1" />
+          <entry key="project.open.time.34" value="1" />
           <entry key="project.open.time.35" value="1" />
           <entry key="project.open.time.46" value="1" />
           <entry key="project.open.time.8" value="1" />
-          <entry key="project.opened" value="8" />
+          <entry key="project.opened" value="9" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="java" value="37" />
+          <entry key="java" value="46" />
           <entry key="xml" value="62" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="37" />
+          <entry key="JAVA" value="46" />
           <entry key="XML" value="62" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="2112" />
+          <entry key="java" value="3679" />
           <entry key="txt" value="116" />
           <entry key="xml" value="98" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="2112" />
+          <entry key="JAVA" value="3679" />
           <entry key="PLAIN_TEXT" value="116" />
           <entry key="XML" value="98" />
         </counts>
@@ -70,33 +71,52 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/proyecto_traductor2/Test.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="212">
-              <caret line="311" column="39" selection-start-line="311" selection-start-column="39" selection-end-line="311" selection-end-column="39" />
+            <state relative-caret-position="195">
+              <caret line="106" selection-start-line="106" selection-end-line="106" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-          <provider editor-type-id="android-manifest" />
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/proyecto_traductor2/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" column="29" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="29" />
+            <state relative-caret-position="221">
+              <caret line="106" column="34" selection-start-line="106" selection-start-column="34" selection-end-line="106" selection-end-column="34" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/proyecto_traductor2/SeleccionarConsulta.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="42" column="27" selection-start-line="42" selection-start-column="27" selection-end-line="42" selection-end-column="27" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_test.xml">
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="1105">
-              <caret line="65" column="34" selection-start-line="65" selection-start-column="34" selection-end-line="65" selection-end-column="34" />
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/proyecto_traductor2/Palabra.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-604">
+              <caret line="7" selection-start-line="7" selection-end-line="12" selection-end-column="25" />
+              <folding>
+                <element signature="method#Palabra#1;class#Palabra#0" />
+              </folding>
             </state>
           </provider>
-          <provider selected="true" editor-type-id="android-designer2" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/proyecto_traductor2/InsertarPalabra.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="198">
+              <caret line="71" column="49" lean-forward="true" selection-start-line="68" selection-start-column="8" selection-end-line="71" selection-end-column="49" />
+            </state>
+          </provider>
         </entry>
       </file>
     </leaf>
@@ -122,7 +142,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/app_bar_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/content_main.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/proyecto_traductor2/Palabra.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_insertar_palabra.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/content_insertar_palabra.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_seleccionar_consulta.xml" />
@@ -136,16 +155,19 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_test.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/activity_main_drawer.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/proyecto_traductor2/InsertarPalabra.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/proyecto_traductor2/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/proyecto_traductor2/MostrarBusqueda.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/proyecto_traductor2/SeleccionarConsulta.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_opciones.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/proyecto_traductor2/Opciones.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/proyecto_traductor2/AvanzadoSorter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/proyecto_traductor2/Tiempo.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/proyecto_traductor2/Palabra.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/proyecto_traductor2/PalabraHelper.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/proyecto_traductor2/DAO/DAOPalabra.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/proyecto_traductor2/InsertarPalabra.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/proyecto_traductor2/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/proyecto_traductor2/Test.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/proyecto_traductor2/SeleccionarConsulta.java" />
       </list>
     </option>
   </component>
@@ -181,17 +203,6 @@
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="proyecto_traductor2" type="cbb59c9e:AndroidPsiDirectoryNode" />
             </path>
-            <path>
-              <item name="Proyecto_Traductor2" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-            </path>
-            <path>
-              <item name="Proyecto_Traductor2" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="drawable" type="ddeffd01:AndroidResFolderTypeNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -200,7 +211,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
-    <property name="device.picker.selection" value="Pixel_XL" />
+    <property name="device.picker.selection" value="5899143e" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/drawable" />
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
   </component>
@@ -561,46 +572,11 @@
         <state relative-caret-position="-276" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/proyecto_traductor2/Palabra.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/proyecto_traductor2/MostrarBusqueda.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="132" column="79" selection-start-line="132" selection-start-column="79" selection-end-line="132" selection-end-column="79" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/proyecto_traductor2/SeleccionarConsulta.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="222" column="79" selection-start-line="222" selection-start-column="79" selection-end-line="222" selection-end-column="79" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/proyecto_traductor2/InsertarPalabra.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-748">
-          <caret line="31" column="4" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_opciones.xml">
       <provider selected="true" editor-type-id="android-designer2" />
       <provider editor-type-id="text-editor">
         <state relative-caret-position="1003">
           <caret line="65" column="44" selection-start-line="65" selection-start-column="44" selection-end-line="65" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/proyecto_traductor2/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1340">
-          <caret line="177" column="82" selection-start-line="177" selection-start-column="82" selection-end-line="177" selection-end-column="82" />
         </state>
       </provider>
     </entry>
@@ -632,21 +608,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_test.xml">
-      <provider selected="true" editor-type-id="android-designer2" />
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="1105">
-          <caret line="65" column="34" selection-start-line="65" selection-start-column="34" selection-end-line="65" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/proyecto_traductor2/Tiempo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/proyecto_traductor2/Tiempo.java" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-v24/ic_launcher_foreground.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-244" />
@@ -663,10 +625,78 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_test.xml">
+      <provider selected="true" editor-type-id="android-designer2" />
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="1105">
+          <caret line="65" column="34" selection-start-line="65" selection-start-column="34" selection-end-line="65" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/proyecto_traductor2/DAO/DAOPalabra.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1632">
+          <caret line="96" column="5" selection-start-line="96" selection-start-column="5" selection-end-line="96" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#209#210#0" expanded="true" />
+            <element signature="e#257#258#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/proyecto_traductor2/PalabraHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="218">
+          <caret line="22" column="22" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/proyecto_traductor2/MostrarBusqueda.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1612">
+          <caret line="132" column="79" selection-start-line="132" selection-start-column="79" selection-end-line="132" selection-end-column="79" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/proyecto_traductor2/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="106" column="34" selection-start-line="106" selection-start-column="34" selection-end-line="106" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/proyecto_traductor2/InsertarPalabra.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="71" column="49" lean-forward="true" selection-start-line="68" selection-start-column="8" selection-end-line="71" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/proyecto_traductor2/Palabra.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-604">
+          <caret line="7" selection-start-line="7" selection-end-line="12" selection-end-column="25" />
+          <folding>
+            <element signature="method#Palabra#1;class#Palabra#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/proyecto_traductor2/Test.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="311" column="39" selection-start-line="311" selection-start-column="39" selection-end-line="311" selection-end-column="39" />
+        <state relative-caret-position="195">
+          <caret line="106" selection-start-line="106" selection-end-line="106" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/proyecto_traductor2/SeleccionarConsulta.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="42" column="27" selection-start-line="42" selection-start-column="27" selection-end-line="42" selection-end-column="27" />
         </state>
       </provider>
     </entry>
