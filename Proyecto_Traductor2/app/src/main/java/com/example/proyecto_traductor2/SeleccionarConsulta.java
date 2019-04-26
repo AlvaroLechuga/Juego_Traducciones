@@ -9,6 +9,7 @@ import android.os.Environment;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -228,7 +229,6 @@ public class SeleccionarConsulta extends AppCompatActivity
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
-    @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
@@ -242,7 +242,9 @@ public class SeleccionarConsulta extends AppCompatActivity
             }
 
         }else if(id == R.id.nav_import){
-            Toast.makeText(getApplicationContext(), "Importar", Toast.LENGTH_LONG).show();
+            if(permisoEscritura()){
+                importDatabase();
+            }
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -285,7 +287,30 @@ public class SeleccionarConsulta extends AppCompatActivity
             source.close();
             destination.close();
             Toast.makeText(this, "Base de datos Traducción exportada", Toast.LENGTH_LONG).show();
+            Log.i("erroresRaros", currentDB.getAbsolutePath());
+            Log.i("erroresRaros", backupDB.getAbsolutePath());
         } catch(IOException e) {
+            Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+
+    }
+
+    public void importDatabase(){
+
+        FileChannel source=null;
+        FileChannel destination=null;
+        File currentDB = new File("/storage/emulated/0/bd_traductor.db");
+        File backupDB = new File("/data/data/com.example.proyecto_traductor2/databases/traductor");
+        try {
+            source = new FileInputStream(currentDB).getChannel();
+            destination = new FileOutputStream(backupDB).getChannel();
+            destination.transferFrom(source, 0, source.size());
+            source.close();
+            destination.close();
+            Toast.makeText(this, "Base de datos Traducción importada", Toast.LENGTH_LONG).show();
+        } catch(IOException e) {
+            Log.i("erroresRaros", e.toString());
             Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
