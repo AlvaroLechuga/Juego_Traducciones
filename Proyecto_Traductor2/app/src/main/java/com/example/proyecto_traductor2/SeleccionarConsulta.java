@@ -114,46 +114,25 @@ public class SeleccionarConsulta extends AppCompatActivity
                 txtPalabraBuscar.setVisibility(View.VISIBLE);
                 break;
             case R.id.rbEng:
-                opcion = "ingles";
+                opcion = "inglés";
                 txtPalabraBuscar.setVisibility(View.VISIBLE);
                 break;
             case R.id.btnBuscar:
                 switch(opcion){
                     case "alfabetico":
                         Intent alfabetico = new Intent(getApplicationContext(), MostrarBusqueda.class);
-                        listaEnviadas.clear();
-                        listaEnviadas = palabras;
-                        listaEnviadas.sort(new AlfabeticoSorter());
-                        alfabetico.putParcelableArrayListExtra("listaPalabra",(ArrayList) listaEnviadas);
+                        alfabetico.putExtra("orden", "alfabetico");
                         startActivity(alfabetico);
                         break;
                     case "aciertos":
                         Intent aciertos = new Intent(getApplicationContext(), MostrarBusqueda.class);
-                        listaEnviadas.clear();
-                        listaEnviadas = palabras;
-                        listaEnviadas.sort(new PuntuacionSorter());
-                        aciertos.putParcelableArrayListExtra("listaPalabra",(ArrayList) listaEnviadas);
+                        aciertos.putExtra("orden", "aciertos");
                         startActivity(aciertos);
                         break;
                     case "español":
                         if(!txtPalabraBuscar.getText().toString().equals("")){
                             Intent esp = new Intent(getApplicationContext(), MostrarBusqueda.class);
-
-                            Palabra palabra = new Palabra();
-
-                            for(int i = 0; i < palabras.size(); i++){
-
-                                if(palabras.get(i).getPalabraSP().equals(txtPalabraBuscar.getText().toString())){
-                                    palabra.setPalabraSP(palabras.get(i).getPalabraSP());
-                                    palabra.setPalabraEN(palabras.get(i).getPalabraEN());
-                                    palabra.setFechaIntroduccion(palabras.get(i).getFechaIntroduccion());
-                                    palabra.setFechaUltimoTest(palabras.get(i).getFechaUltimoTest());
-                                    palabra.setAciertos(palabras.get(i).getAciertos());
-                                }
-                            }
-                            listaEnviadas.clear();
-                            listaEnviadas.add(palabra);
-                            esp.putParcelableArrayListExtra("listaPalabra",(ArrayList) listaEnviadas);
+                            esp.putExtra("palabraES", txtPalabraBuscar.getText().toString());
                             startActivity(esp);
                         }else{
                             Toast.makeText(getApplicationContext(), "No has escrito ninguna palabra", Toast.LENGTH_SHORT).show();
@@ -161,25 +140,9 @@ public class SeleccionarConsulta extends AppCompatActivity
                         break;
                     case "inglés":
 
-                        if(txtPalabraBuscar.getText().toString().equals("")){
-
+                        if(!txtPalabraBuscar.getText().toString().equals("")){
                             Intent ing = new Intent(getApplicationContext(), MostrarBusqueda.class);
-
-                            Palabra palabra2 = new Palabra();
-
-                            for(int i = 0; i < palabras.size(); i++){
-
-                                if(palabras.get(i).getPalabraEN().equals(txtPalabraBuscar.getText().toString())){
-                                    palabra2.setPalabraSP(palabras.get(i).getPalabraSP());
-                                    palabra2.setPalabraEN(palabras.get(i).getPalabraEN());
-                                    palabra2.setFechaIntroduccion(palabras.get(i).getFechaIntroduccion());
-                                    palabra2.setFechaUltimoTest(palabras.get(i).getFechaUltimoTest());
-                                    palabra2.setAciertos(palabras.get(i).getAciertos());
-                                }
-                            }
-                            listaEnviadas.clear();
-                            listaEnviadas.add(palabra2);
-                            ing.putParcelableArrayListExtra("listaPalabra",(ArrayList) listaEnviadas);
+                            ing.putExtra("palabraIN", txtPalabraBuscar.getText().toString());
                             startActivity(ing);
 
                         }else{

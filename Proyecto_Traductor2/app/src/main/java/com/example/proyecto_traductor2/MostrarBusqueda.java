@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.speech.tts.TextToSpeech;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
@@ -52,6 +53,7 @@ public class MostrarBusqueda extends AppCompatActivity
 
     AdapterPalabra adapter;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +84,41 @@ public class MostrarBusqueda extends AppCompatActivity
         DAOPalabra dao = new DAOPalabra();
         palabras = dao.ObtenerPalabras(dbHelper);
 
+        String opcion = getIntent().getStringExtra("orden");
+        String palabraES = getIntent().getStringExtra("palabraES");
+        String palabraEN = getIntent().getStringExtra("palabraIN");
+
+        if(opcion != null){
+            switch (opcion){
+                case "alfabetico":
+                    palabras.sort(new AlfabeticoSorter());
+                    break;
+                case "aciertos":
+                    palabras.sort(new PuntuacionSorter());
+                    break;
+            }
+        }else{
+            if(palabraES != null){
+                for(int i = 0; i <= palabras.size(); i++){
+                    if(palabraES.equals(palabras.get(i).getPalabraSP())){
+                        Palabra p = palabras.get(i);
+                        palabras.clear();
+                        palabras.add(p);
+                        break;
+                    }
+                }
+            }else{
+                for(int i = 0; i <= palabras.size(); i++){
+                    if(palabraEN.equals(palabras.get(i).getPalabraEN())){
+                        Palabra p = palabras.get(i);
+                        palabras.clear();
+                        palabras.add(p);
+                        break;
+                    }
+                }
+            }
+        }
+
         lvPalabra = findViewById(R.id.lvPalabra);
 
         adapter = new AdapterPalabra(this, (ArrayList<Palabra>) palabras);
@@ -97,13 +134,12 @@ public class MostrarBusqueda extends AppCompatActivity
                     @Override
                     public void onInit(int status) {
 
-                        if(status == TextToSpeech.SUCCESS){
-                            int result=tts.setLanguage(Locale.US);
-                            if(result==TextToSpeech.LANG_MISSING_DATA ||
-                                    result==TextToSpeech.LANG_NOT_SUPPORTED){
+                        if (status == TextToSpeech.SUCCESS) {
+                            int result = tts.setLanguage(Locale.US);
+                            if (result == TextToSpeech.LANG_MISSING_DATA ||
+                                    result == TextToSpeech.LANG_NOT_SUPPORTED) {
                                 Log.e("error", "This Language is not supported");
-                            }
-                            else{
+                            } else {
                                 LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
                                 View view1 = inflater.inflate(R.layout.details_palabra, null);
                                 Button btnPlay = view1.findViewById(R.id.btnPlay);
@@ -133,7 +169,7 @@ public class MostrarBusqueda extends AppCompatActivity
 
                                         palabra.add(palabras.get(position));
 
-                                        modificarPalabra.putParcelableArrayListExtra("palabraModificar",(ArrayList) palabra);
+                                        modificarPalabra.putParcelableArrayListExtra("palabraModificar", (ArrayList) palabra);
                                         finish();
                                         startActivity(modificarPalabra);
 
@@ -155,13 +191,13 @@ public class MostrarBusqueda extends AppCompatActivity
                                                         DAOPalabra dao = new DAOPalabra();
                                                         Palabra palabra = new Palabra();
                                                         palabra.setId(palabras.get(position).getId());
-                                                        if(dao.EliminarPalabra(palabra, dbHelper) == 1){
+                                                        if (dao.EliminarPalabra(palabra, dbHelper) == 1) {
                                                             Toast.makeText(getApplicationContext(), "Se ha eliminado la palabra", Toast.LENGTH_SHORT).show();
                                                             palabras = dao.ObtenerPalabras(dbHelper);
                                                             adapter = new AdapterPalabra((Activity) context, (ArrayList<Palabra>) palabras);
                                                             lvPalabra.setAdapter(adapter);
                                                             alertDialog.cancel();
-                                                        }else{
+                                                        } else {
                                                             Toast.makeText(getApplicationContext(), "Ha ocurrido un error al eliminar la palabra", Toast.LENGTH_SHORT).show();
                                                         }
                                                     }
@@ -224,16 +260,16 @@ public class MostrarBusqueda extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if(id == R.id.nav_manage){
+        if (id == R.id.nav_manage) {
             Intent i = new Intent(getApplicationContext(), Opciones.class);
             startActivity(i);
-        }else if(id == R.id.nav_export){
-            if(permisoEscritura()){
+        } else if (id == R.id.nav_export) {
+            if (permisoEscritura()) {
                 exportDatabase();
             }
 
-        }else if(id == R.id.nav_import){
-            if(permisoEscritura()){
+        } else if (id == R.id.nav_import) {
+            if (permisoEscritura()) {
                 importDatabase();
             }
         }
@@ -252,7 +288,7 @@ public class MostrarBusqueda extends AppCompatActivity
                 return true;
             } else {
                 requestPermissions(
-                        new String[] { Manifest.permission.WRITE_EXTERNAL_STORAGE },
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                         1);
                 return false;
             }
@@ -265,9 +301,9 @@ public class MostrarBusqueda extends AppCompatActivity
 
         File sd = Environment.getExternalStorageDirectory();
         File data = Environment.getDataDirectory();
-        FileChannel source=null;
-        FileChannel destination=null;
-        String currentDBPath = "/data/"+ "com.example.proyecto_traductor2" +"/databases/"+"traductor";
+        FileChannel source = null;
+        FileChannel destination = null;
+        String currentDBPath = "/data/" + "com.example.proyecto_traductor2" + "/databases/" + "traductor";
         String backupDBPath = "bd_traductor.db";
         File currentDB = new File(data, currentDBPath);
         File backupDB = new File(sd, backupDBPath);
@@ -280,17 +316,17 @@ public class MostrarBusqueda extends AppCompatActivity
             Toast.makeText(this, "Base de datos Traducción exportada", Toast.LENGTH_LONG).show();
             Log.i("erroresRaros", currentDB.getAbsolutePath());
             Log.i("erroresRaros", backupDB.getAbsolutePath());
-        } catch(IOException e) {
+        } catch (IOException e) {
             Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
 
     }
 
-    public void importDatabase(){
+    public void importDatabase() {
 
-        FileChannel source=null;
-        FileChannel destination=null;
+        FileChannel source = null;
+        FileChannel destination = null;
         File currentDB = new File("/storage/emulated/0/bd_traductor.db");
         File backupDB = new File("/data/data/com.example.proyecto_traductor2/databases/traductor");
         try {
@@ -300,7 +336,7 @@ public class MostrarBusqueda extends AppCompatActivity
             source.close();
             destination.close();
             Toast.makeText(this, "Base de datos Traducción importada", Toast.LENGTH_LONG).show();
-        } catch(IOException e) {
+        } catch (IOException e) {
             Log.i("erroresRaros", e.toString());
             Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show();
             e.printStackTrace();
