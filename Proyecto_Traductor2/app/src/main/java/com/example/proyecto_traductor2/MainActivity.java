@@ -1,10 +1,14 @@
 package com.example.proyecto_traductor2;
 
-import android.app.Activity;
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,12 +23,20 @@ import android.widget.Toast;
 
 import com.example.proyecto_traductor2.DAO.DAOPalabra;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+
+    public static final String TAG = "PROBLEMASGENERALES";
 
     Button btnIntroducir;
     Button btnConsultas;
@@ -73,10 +85,6 @@ public class MainActivity extends AppCompatActivity
 
         listaPalabras = addPalabras();
 
-        Bundle parametros = this.getIntent().getExtras();
-        if(parametros != null) {
-            listaPalabras = (ArrayList) getIntent().getParcelableArrayListExtra("listaPalabra");
-        }
     }
 
     private List<Palabra> addPalabras() {
@@ -154,10 +162,60 @@ public class MainActivity extends AppCompatActivity
         if(id == R.id.nav_manage){
             Intent i = new Intent(getApplicationContext(), Opciones.class);
             startActivity(i);
+        }else if(id == R.id.nav_export){
+                if(permisoEscritura()){
+                    exportDatabase();
+                }
+
+        }else if(id == R.id.nav_import){
+            Toast.makeText(getApplicationContext(), "Importar", Toast.LENGTH_LONG).show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    public boolean permisoEscritura() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            int writepermission = checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            if (getApplicationContext().checkSelfPermission(
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+
+                return true;
+            } else {
+                requestPermissions(
+                        new String[] { Manifest.permission.WRITE_EXTERNAL_STORAGE },
+                        1);
+                return false;
+            }
+        } else {
+            return true;
+        }
+    }
+
+    public void exportDatabase() {
+
+        File sd = Environment.getExternalStorageDirectory();
+        File data = Environment.getDataDirectory();
+        FileChannel source=null;
+        FileChannel destination=null;
+        String currentDBPath = "/data/"+ "com.example.proyecto_traductor2" +"/databases/"+"traductor";
+        String backupDBPath = "bd_traductor.db";
+        File currentDB = new File(data, currentDBPath);
+        File backupDB = new File(sd, backupDBPath);
+        try {
+            source = new FileInputStream(currentDB).getChannel();
+            destination = new FileOutputStream(backupDB).getChannel();
+            destination.transferFrom(source, 0, source.size());
+            source.close();
+            destination.close();
+            Toast.makeText(this, "Base de datos Traducción exportada", Toast.LENGTH_LONG).show();
+        } catch(IOException e) {
+            Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+
+    }
+
 }
