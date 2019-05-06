@@ -101,16 +101,9 @@ public class modifyPalabra extends AppCompatActivity
 
                     if(dao.ModificarPalabra(word, dbHelper) == 1){
                         Toast.makeText(getApplicationContext(), "Se ha modificado la palabra", Toast.LENGTH_LONG).show();
-                        Intent i = new Intent(getApplicationContext(), MostrarBusqueda.class);
-                        finish();
-                        startActivity(i);
                     }else{
                         Toast.makeText(getApplicationContext(), "Ha ocurrido un error al modificar la palabra", Toast.LENGTH_LONG).show();
-                        Intent i2 = new Intent(getApplicationContext(), MostrarBusqueda.class);
-                        finish();
-                        startActivity(i2);
                     }
-
                 }
             }
         });

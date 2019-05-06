@@ -598,6 +598,7 @@
     <string name="search_menu_title">Search</string>
     <string name="status_bar_notification_info_overflow">999+</string>
     <string name="title_activity_insertar_palabra">InsertarPalabra</string>
+    <string name="title_activity_modify_palabra">modifyPalabra</string>
     <string name="title_activity_mostrar_busqueda">MostrarBusqueda</string>
     <string name="title_activity_seleccionar_consulta">SeleccionarConsulta</string>
     <string name="title_activity_test">Test</string>

@@ -3,6 +3,7 @@ package com.example.proyecto_traductor2.DAO;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.example.proyecto_traductor2.Palabra;
 import com.example.proyecto_traductor2.PalabraHelper;
@@ -75,6 +76,7 @@ public class DAOPalabra {
 
         try {
             String consulta = "UPDATE palabra SET palabraSP = '"+palabraSP+"', palabraEN = '"+palabraEN+"', fechaIntroduccion = '"+fechaIntroduccion+"', fechaUltimoTest = '"+fechaUltimoTest+"', aciertos = '"+aciertos+"' WHERE id = '"+id+"'";
+            Log.i("consultaSQL", consulta);
             db.execSQL(consulta);
             return 1;
         }catch (SQLException sqle){

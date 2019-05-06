@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <instant-run
     abi="x86"
-    api-level="28"
+    api-level="27"
     build-mode="COLD"
     density="560dpi"
     format="10"
     ir-eligibility="COMPATIBLE"
     plugin-version="3.3.2"
-    timestamp="1554707891861"
+    timestamp="1557132343257"
     token="2998530231807930922"
     verifier="COLD_SWAP_REQUESTED" >
 
     <task
         name="javac"
-        duration="509" />
+        duration="384" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="21" />
+        duration="10" />
     <task
         name="verifier"
-        duration="3" />
+        duration="7" />
 
     <artifact
         location="C:\Users\usuario\Desktop\Proyecto_Traductor2\app\build\intermediates\split-apk\debug\slices\slice_1.apk"
@@ -30,7 +30,7 @@
 
     <build
         build-mode="FULL"
-        timestamp="1554706752445"
+        timestamp="1557132104768"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
             location="C:\Users\usuario\Desktop\Proyecto_Traductor2\app\build\intermediates\split-apk\debug\slices\slice_6.apk"
@@ -75,7 +75,7 @@
     <build
         build-mode="COLD"
         ir-eligibility="COMPATIBLE"
-        timestamp="1554707891861"
+        timestamp="1557132343257"
         verifier="COLD_SWAP_REQUESTED" >
         <artifact
             location="C:\Users\usuario\Desktop\Proyecto_Traductor2\app\build\intermediates\split-apk\debug\slices\slice_1.apk"
