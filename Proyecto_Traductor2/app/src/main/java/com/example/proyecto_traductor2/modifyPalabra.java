@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -157,7 +158,12 @@ public class modifyPalabra extends AppCompatActivity
             }
 
         }else if(id == R.id.nav_import){
-            Toast.makeText(getApplicationContext(), "Importar", Toast.LENGTH_LONG).show();
+            if(permisoEscritura()){
+                importDatabase();
+            }
+        }else if(id == R.id.nav_juego_parejas){
+            Intent i2 = new Intent(getApplicationContext(), juego_correspondencia.class);
+            startActivity(i2);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -201,6 +207,27 @@ public class modifyPalabra extends AppCompatActivity
             destination.close();
             Toast.makeText(this, "Base de datos Traducción exportada", Toast.LENGTH_LONG).show();
         } catch(IOException e) {
+            Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+
+    }
+
+    public void importDatabase(){
+
+        FileChannel source=null;
+        FileChannel destination=null;
+        File currentDB = new File("/storage/emulated/0/bd_traductor.db");
+        File backupDB = new File("/data/data/com.example.proyecto_traductor2/databases/traductor");
+        try {
+            source = new FileInputStream(currentDB).getChannel();
+            destination = new FileOutputStream(backupDB).getChannel();
+            destination.transferFrom(source, 0, source.size());
+            source.close();
+            destination.close();
+            Toast.makeText(this, "Base de datos Traducción importada", Toast.LENGTH_LONG).show();
+        } catch(IOException e) {
+            Log.i("erroresRaros", e.toString());
             Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }

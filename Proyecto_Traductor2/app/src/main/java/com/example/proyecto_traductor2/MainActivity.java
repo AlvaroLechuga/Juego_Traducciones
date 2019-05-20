@@ -171,6 +171,9 @@ public class MainActivity extends AppCompatActivity
             if(permisoEscritura()){
                 importDatabase();
             }
+        }else if(id == R.id.nav_juego_parejas){
+            Intent i2 = new Intent(getApplicationContext(), juego_correspondencia.class);
+            startActivity(i2);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

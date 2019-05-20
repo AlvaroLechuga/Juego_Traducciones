@@ -1172,11 +1172,13 @@ id mtrl_internal_children_alpha_tag
 id multiply
 id nav_export
 id nav_import
+id nav_juego_parejas
 id nav_manage
 id nav_view
 id navigation_header_container
 id navigation_subheader
 id navigation_subheader2
+id navigation_subheader3
 id never
 id none
 id normal

@@ -20,6 +20,7 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/AppTheme" >
+        <activity android:name="com.example.proyecto_traductor2.juego_correspondencia" />
         <activity
             android:name="com.example.proyecto_traductor2.modifyPalabra"
             android:label="@string/title_activity_modify_palabra"

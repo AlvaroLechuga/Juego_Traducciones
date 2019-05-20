@@ -11,10 +11,11 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".juego_correspondencia"></activity>
         <activity
             android:name=".modifyPalabra"
             android:label="@string/title_activity_modify_palabra"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Opciones" />
         <activity
             android:name=".Test"

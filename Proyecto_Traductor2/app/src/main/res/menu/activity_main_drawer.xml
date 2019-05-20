@@ -31,4 +31,16 @@
         </menu>
     </item>
 
+    <item
+        android:id="@+id/navigation_subheader3"
+        android:title="Juegos">
+        <menu>
+            <item
+                android:id="@+id/nav_juego_parejas"
+                android:icon="@drawable/buttonshape"
+                android:title="Juego de correspondencia" />
+
+        </menu>
+    </item>
+
 </menu>
