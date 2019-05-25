@@ -343,7 +343,7 @@ public class Test extends AppCompatActivity
 
     public String ObtenerPalabra(){
 
-        int n2 = rand.nextInt(palabrasCopia.size());;
+        int n2 = rand.nextInt(palabrasCopia.size());
 
         while (palabrasIngles.contains(palabrasInicial.get(n2).getPalabraEN())){
             n2 = rand.nextInt(palabrasCopia.size());

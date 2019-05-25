@@ -11,7 +11,8 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".juego_correspondencia"></activity>
+        <activity android:name=".Juego"></activity>
+        <activity android:name=".juego_correspondencia" />
         <activity
             android:name=".modifyPalabra"
             android:label="@string/title_activity_modify_palabra"
