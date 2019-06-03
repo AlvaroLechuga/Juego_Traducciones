@@ -1172,6 +1172,7 @@ id mtrl_internal_children_alpha_tag
 id multiply
 id nav_export
 id nav_import
+id nav_juego_comecocos
 id nav_juego_parejas
 id nav_manage
 id nav_view

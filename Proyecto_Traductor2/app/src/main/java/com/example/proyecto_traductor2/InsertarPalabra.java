@@ -170,6 +170,9 @@ public class InsertarPalabra extends AppCompatActivity
         }else if(id == R.id.nav_juego_parejas){
             Intent i2 = new Intent(getApplicationContext(), juego_correspondencia.class);
             startActivity(i2);
+        }else if(id == R.id.nav_juego_comecocos){
+            Intent i3 = new Intent(getApplicationContext(), juego_comecocos.class);
+            startActivity(i3);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -39,6 +39,10 @@
                 android:id="@+id/nav_juego_parejas"
                 android:icon="@drawable/buttonshape"
                 android:title="Juego de correspondencia" />
+            <item
+                android:id="@+id/nav_juego_comecocos"
+                android:icon="@drawable/buttonshape"
+                android:title="Comer palabras" />
 
         </menu>
     </item>
