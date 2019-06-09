@@ -62,7 +62,7 @@ public class Rectangulo {
 
     public void dibujar(Canvas canvas) {
         Paint p = new Paint();
-        p.setColor(Color.YELLOW);
+        p.setColor(Color.parseColor("#053075"));
         p.setStyle(Paint.Style.FILL);
         rect.set(Math.round(x), Math.round(y), Math.round(ancho+x), Math.round(alto+y));
         canvas.drawRect(rect,p);

@@ -1006,6 +1006,9 @@ drawable abc_textfield_search_material
 drawable abc_vector_test
 drawable avd_hide_password
 drawable avd_show_password
+drawable bg
+drawable btnder
+drawable btnizq
 drawable buttonshape
 drawable design_bottom_navigation_item_background
 drawable design_fab_background
@@ -1040,7 +1043,9 @@ drawable notification_template_icon_bg
 drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
+drawable prueba
 drawable side_nav_bar
+drawable text
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
 id ALT
