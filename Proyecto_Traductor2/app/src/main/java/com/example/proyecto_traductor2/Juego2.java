@@ -19,12 +19,14 @@ public class Juego2 extends SurfaceView implements SurfaceHolder.Callback {
 
     private HiloPantalla2 hiloPantalla;
     List<Sprite> sprites = new ArrayList<>();
+    List<Fruta> frutas = new ArrayList<>();
 
     List<Bitmap> interfazUsuario = new ArrayList<>();
 
     Bitmap background;
 
     Sprite sprite;
+    Fruta fruta;
 
     List<Rectangulo> ui = new ArrayList<>();
 
@@ -75,6 +77,8 @@ public class Juego2 extends SurfaceView implements SurfaceHolder.Callback {
 
         // Palabra
         canvas.drawText(palabra, 1100,100, paintTexto);
+
+        frutas.get(5).onDraw(canvas);
     }
 
     @Override
@@ -91,6 +95,20 @@ public class Juego2 extends SurfaceView implements SurfaceHolder.Callback {
 
         createSprites();
         createUI();
+        createFruit();
+    }
+
+    private void createFruit() {
+
+        frutas.add(createFrutes(R.drawable.banana));
+        frutas.add(createFrutes(R.drawable.mango));
+        frutas.add(createFrutes(R.drawable.orange));
+        frutas.add(createFrutes(R.drawable.grape));
+        frutas.add(createFrutes(R.drawable.peper));
+        frutas.add(createFrutes(R.drawable.cherry));
+        frutas.add(createFrutes(R.drawable.onion));
+        frutas.add(createFrutes(R.drawable.apple));
+
     }
 
     private void createSprites(){
@@ -162,6 +180,13 @@ public class Juego2 extends SurfaceView implements SurfaceHolder.Callback {
         bmp = bmp.createScaledBitmap(bmp, (int)(getWidth()*0.5), (int)(getHeight()*0.5), true);
         sprite = new Sprite(this, bmp, 0, 920);
         return sprite;
+    }
+
+    private Fruta createFrutes(int resource){
+        Bitmap bmp = BitmapFactory.decodeResource(getResources(), resource);
+        bmp = bmp.createScaledBitmap(bmp, 150, 150, true);
+        fruta = new Fruta(this, bmp, (int)(Math.random()*anchoPantalla), 0);
+        return fruta;
     }
 
     @Override
