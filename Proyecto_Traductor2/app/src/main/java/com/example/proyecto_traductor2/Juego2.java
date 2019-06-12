@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -20,6 +21,7 @@ public class Juego2 extends SurfaceView implements SurfaceHolder.Callback {
     private HiloPantalla2 hiloPantalla;
     List<Sprite> sprites = new ArrayList<>();
     List<Fruta> frutas = new ArrayList<>();
+    List<Fruta> frutasActivas = new ArrayList<>();
 
     List<Bitmap> interfazUsuario = new ArrayList<>();
 
@@ -35,9 +37,14 @@ public class Juego2 extends SurfaceView implements SurfaceHolder.Callback {
 
     int score = 0;
 
+    int tiempo = 0;
+    Tiempo time;
+
     Paint paintTexto;
 
     String palabra;
+
+    int speed = 10;
 
     public Juego2(Context context) {
         super(context);
@@ -46,6 +53,10 @@ public class Juego2 extends SurfaceView implements SurfaceHolder.Callback {
         paintTexto = new Paint();
 
         palabra = generatePalabra();
+
+        paintTexto.setColor(Color.WHITE);
+        paintTexto.setTextSize(60);
+        paintTexto.setTextAlign(Paint.Align.CENTER);
     }
 
     @Override
@@ -54,9 +65,38 @@ public class Juego2 extends SurfaceView implements SurfaceHolder.Callback {
 
         canvas.drawBitmap(background, 0f, 0f, null);
 
-        paintTexto.setColor(Color.WHITE);
-        paintTexto.setTextSize(60);
-        paintTexto.setTextAlign(Paint.Align.CENTER);
+        tiempo = time.getSegundos();
+
+        if(frutasActivas.size() > 0){
+            frutasActivas.get(0).onDraw(canvas);
+
+            if(frutasActivas.get(0).comprobarDentro(sprites.get(0))){
+                if(frutasActivas.get(0).getPalabra().equals(palabra)){
+                    score++;
+                    generatePalabra();
+                    sacarFruta();
+                }else{
+                    score--;
+                    sacarFruta();
+                }
+            }
+
+            if(frutasActivas.get(0).getY() > altoPantalla){
+
+                if(frutasActivas.get(0).getPalabra().equals(palabra)){
+                    score--;
+                    sacarFruta();
+                }else{
+                    sacarFruta();
+                }
+            }
+
+            if(tiempo % 2 == 0){
+                frutasActivas.get(0).setY(frutasActivas.get(0).getY()+speed);
+            }else{
+                frutasActivas.get(0).setY(frutasActivas.get(0).getY()+speed);
+            }
+        }
 
         for(Sprite sprite: sprites){
             sprite.onDraw(canvas);
@@ -78,7 +118,14 @@ public class Juego2 extends SurfaceView implements SurfaceHolder.Callback {
         // Palabra
         canvas.drawText(palabra, 1100,100, paintTexto);
 
-        frutas.get(5).onDraw(canvas);
+        aumentarTiempo();
+
+    }
+
+    private void aumentarTiempo() {
+        if(tiempo % 5 == 0){
+            speed += 1;
+        }
     }
 
     @Override
@@ -96,6 +143,53 @@ public class Juego2 extends SurfaceView implements SurfaceHolder.Callback {
         createSprites();
         createUI();
         createFruit();
+
+        sacarFruta();
+
+        time = new Tiempo();
+        time.Contar();
+    }
+
+    private void sacarFruta() {
+        frutasActivas.clear();
+        int numero = (int)(Math.random()*frutas.size()-1);
+        frutasActivas.add(frutas.get(numero));
+
+        frutasActivas.get(0).setX((int)(Math.random()*anchoPantalla));
+        frutasActivas.get(0).setY(0);
+
+        switch (numero){
+            case 0:
+                frutasActivas.get(0).setPalabra("BANANA");
+                break;
+            case 1:
+                frutasActivas.get(0).setPalabra("MANGO");
+                break;
+            case 2:
+                frutasActivas.get(0).setPalabra("ORANGE");
+                break;
+            case 3:
+                frutasActivas.get(0).setPalabra("GRAPE");
+                break;
+            case 4:
+                frutasActivas.get(0).setPalabra("PEPPER");
+                break;
+            case 5:
+                frutasActivas.get(0).setPalabra("PEANOUT");
+                break;
+            case 6:
+                frutasActivas.get(0).setPalabra("CHERRY");
+                break;
+            case 7:
+                frutasActivas.get(0).setPalabra("ONION");
+                break;
+            case 8:
+                frutasActivas.get(0).setPalabra("APPLE");
+                break;
+        }
+
+        Log.i("palabraGuardada", frutasActivas.get(0).getPalabra());
+
     }
 
     private void createFruit() {
@@ -105,6 +199,7 @@ public class Juego2 extends SurfaceView implements SurfaceHolder.Callback {
         frutas.add(createFrutes(R.drawable.orange));
         frutas.add(createFrutes(R.drawable.grape));
         frutas.add(createFrutes(R.drawable.peper));
+        frutas.add(createFrutes(R.drawable.peanout));
         frutas.add(createFrutes(R.drawable.cherry));
         frutas.add(createFrutes(R.drawable.onion));
         frutas.add(createFrutes(R.drawable.apple));
@@ -177,7 +272,7 @@ public class Juego2 extends SurfaceView implements SurfaceHolder.Callback {
 
     private Sprite createSprites(int resource){
         Bitmap bmp = BitmapFactory.decodeResource(getResources(), resource);
-        bmp = bmp.createScaledBitmap(bmp, (int)(getWidth()*0.5), (int)(getHeight()*0.5), true);
+        bmp = bmp.createScaledBitmap(bmp, 650, 650, true);
         sprite = new Sprite(this, bmp, 0, 920);
         return sprite;
     }

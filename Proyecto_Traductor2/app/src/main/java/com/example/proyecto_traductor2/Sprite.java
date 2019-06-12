@@ -50,12 +50,12 @@ public class Sprite {
                 x = x + xSpeed;
                 y = y + ySpeed;
             } else if (direccion == 1) {
-                xSpeed = -30;
+                xSpeed = -60;
                 ySpeed = 0;
                 x = x + xSpeed;
                 y = y + ySpeed;
             } else if (direccion == 2) {
-                xSpeed = 30;
+                xSpeed = 60;
                 ySpeed = 0;
                 x = x + xSpeed;
                 y = y + ySpeed;
@@ -122,5 +122,21 @@ public class Sprite {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
     }
 }

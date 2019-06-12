@@ -3,6 +3,7 @@ package com.example.proyecto_traductor2;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.util.Log;
 
 public class Fruta {
 
@@ -17,6 +18,7 @@ public class Fruta {
     private int currentFrame = 0;
     private int width;
     private int height;
+    private  String palabra;
 
     //direction = 0 up, 1 left, 2 down, 3 right
     //animation = 3 up, 1 left, 0 down, 2 right
@@ -36,6 +38,14 @@ public class Fruta {
 
     }
 
+    public String getPalabra() {
+        return palabra;
+    }
+
+    public void setPalabra(String palabra) {
+        this.palabra = palabra;
+    }
+
     public void onDraw(Canvas canvas){
         update();
 
@@ -44,6 +54,22 @@ public class Fruta {
         Rect src  = new Rect(srcX, srcY,  srcX + width, srcY + height);
         Rect dst = new Rect(x, y, x+width, y+height);
         canvas.drawBitmap(bmp, src, dst, null);
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
     }
 
     public int getX() {
@@ -62,15 +88,15 @@ public class Fruta {
         this.y = y;
     }
 
-    public boolean comprobarDentro(Float x, Float y) {
-        boolean devolver = false;
+    public boolean comprobarDentro(Sprite sprite) {
+        Boolean colision = false;
+        if (x + width  > sprite.getX() &&
+                x < sprite.getX() + sprite.getWidth() &&
+                y + height > sprite.getY() &&
+                y < sprite.getY() + sprite.getHeight()) {
 
-        if(x>getX() && x< getX()+this.width && y>getY() && y<getY()+this.height){
-
-            devolver = true;
-
+            colision = true;
         }
-
-        return devolver;
+        return colision;
     }
 }
